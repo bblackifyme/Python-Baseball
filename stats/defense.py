@@ -19,7 +19,7 @@ events = events.rename_axis(None, axis='columns')
 
 events_plus_pa = pd.merge(pa, events, how='outer', left_on=['year', 'game_id', 'team'], right_on=['year', 'game_id', 'team'])
 
-defense = pd.merge(info, events_plus_pa)
+defense = pd.merge(events_plus_pa, info)
 defense.loc[:, 'DER'] = 1 - ((defense['H'] + defense['ROE']) / (defense['PA'] - defense['BB'] - defense['SO'] - defense['HBP'] - defense['HR']))
 defense.loc[:, 'year'] = pd.to_numeric(defense['year'])
 der = defense.loc[defense['year'] >= 1978, ['year', 'defense', 'DER']]
